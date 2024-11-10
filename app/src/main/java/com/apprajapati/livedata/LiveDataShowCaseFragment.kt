@@ -5,15 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.apprajapati.livedata.databinding.FragmentLivedataShowcaseBinding
 
 class LiveDataShowCaseFragment : Fragment() {
 
-    private var view : View ?= null
-
-    private lateinit var mLivedataText : TextView
+    private var _binding : FragmentLivedataShowcaseBinding?= null
+    private val binding get() = _binding!!
 
     private lateinit var viewModel: MyViewModel
 
@@ -21,25 +20,29 @@ class LiveDataShowCaseFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        view = inflater.inflate(R.layout.fragment_livedata_showcase, container, false)
+    ): View {
+        _binding = FragmentLivedataShowcaseBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(requireActivity())[MyViewModel::class.java]
         //requireActivity makes sure that viewmodel attached to activity's lifecycle is returned.
 
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mLivedataText = view.findViewById(R.id.livedataText)
         viewModel.myData.addObserver(this) {
             data ->
                 Log.d("Ajay", "Fragment:: Data update $data")
-                mLivedataText.text = data.toString()
+                binding.livedataText.text = data.toString()
         }
 
         this.lifecycle.addObserver(MyLifeCycleObserver())
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
