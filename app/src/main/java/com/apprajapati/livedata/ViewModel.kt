@@ -9,5 +9,4 @@ class MyViewModel : ViewModel() {
     fun increaseMyData() {
         myData.increaseValue()
     }
-
 }

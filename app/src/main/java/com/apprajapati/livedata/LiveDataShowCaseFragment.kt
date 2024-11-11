@@ -38,7 +38,8 @@ class LiveDataShowCaseFragment : Fragment() {
                 binding.livedataText.text = data.toString()
         }
 
-        this.lifecycle.addObserver(MyLifeCycleObserver())
+
+        //this.lifecycle.addObserver(MyLifeCycleObserver()) // uncomment to monitor lifecycle events of fragment
     }
 
     override fun onDestroyView() {

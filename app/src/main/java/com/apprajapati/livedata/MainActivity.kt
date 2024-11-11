@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener{
             model.increaseMyData()
         }
-        this.lifecycle.addObserver(MyLifeCycleObserver())
+        //this.lifecycle.addObserver(MyLifeCycleObserver())
         addFragment(LiveDataShowCaseFragment(), supportFragmentManager)
     }
 
@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
+        //This is to test that livedata update will not be triggered when activity is in onStop state.
         repeat(10){
             model.increaseMyData()
         }
